@@ -1,24 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
+import { HashRouter as Router, Route } from 'react-router-dom';
+import { StateMachineProvider, createStore } from 'little-state-machine';
+import Signup from './components/signup.component';
+import Welcomepage from './components/welcomepage.component'
 import './App.css';
+
+createStore({
+  data: {
+    firstName: '',
+    email: '',
+    password: ''
+  }
+});
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="auth-wrapper">
+        <div className="auth-inner">
+          <StateMachineProvider>
+            <Router>
+              <Route exact path="/" component={Signup} />
+              <Route path="/sign-up" component={Signup} />
+              <Route path="/welcome" component={Welcomepage} />
+            </Router>
+          </StateMachineProvider>
+        </div>
+      </div>
     </div>
   );
 }
